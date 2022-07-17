@@ -1,0 +1,300 @@
+Cloud Proxy - https://g3doc.corp.google.com/third_party/golang/cloudsqlproxy/README.md?cl=head
+
+https://cloud.google.com/sql/docs/mysql/connect-admin-proxy
+
+gcloud sql connect my-instance --user=root
+
+gcloud sql connect pg-db1 --user=postgres
+
+./cloud_sql_proxy -instances=shailesh-1:us-central1:cql-mysql-us-central1=tcp:3306 &
+mysql -u root -h 127.0.0.1
+
+./cloud_sql_proxy -instances=my-project:us-central1:sql-inst=tcp:3306 &
+
+./cloud_sql_proxy -instances=shailesh-1:asia-south1:mymart2=tcp:3306 &
+./cloud_sql_proxy -instances=shailesh-1:us-central1:mymart-clone-2=tcp:3306 &
+
+mysql -u root -h 127.0.0.1 -p
+mysql -u admin -h 127.0.0.1 -p
+
+
+./cloud_sql_proxy -instances=shailesh-1:asia-south1:pg-db1=tcp:5432 &
+
+./cloud_sql_proxy -instances=shailesh-1:asia-south1:pg-db1=tcp:5432 &
+./cloud_sql_proxy -enable_iam_login -instances=shailesh-1:asia-south1:pg-db1=tcp:5432 &
+
+psql -h 127.0.0.1 -U postgres postgres
+
+./cloud_sql_proxy -instances=shailesh-1:us-central1:mymart=tcp:3307 &
+
+./cloud_sql_proxy -instances=shailesh-1:us-central1:mymart=tcp:3306,shailesh-1:asia-south1:pg1=tcp:5432 &
+
+psql OPTIONS
+
+
+./cloud_sql_proxy -instances=serious-sylph-330414:us-central1:demoinstance:sql-1=tcp:0.0.0.0:1433
+
+
+instances=project:region:db=tcp:3306,project:region:db-2=tcp:3307
+
+
+
+We encountered a problem while creating a connection. Constraint constraints/compute.restrictVpcPeering violated for project 664290125703.
+Peering the network projects/cdcbb899a64d74d1bp-tp/global/networks/servicenetworking is not allowed.
+Help Token: Ae-hA1NjVyvHpm1vqJKRWGNkQ9yStv2BTGjfqVoN262t4HOIqO04E4wkf_xSZz14uBUXZccIMKYskuZFAnNbI0xzGVpib6-1-yp_v7gA0rpVEuf3
+
+cloud-sql mysql driver -  cloudsql-mysql
+
+
+
+gcloud sql instances patch $CSQL_NAME --authorized-networks=$(gcloud compute instances describe $STRIIMVM_NAME --format='get(networkInterfaces[0].accessConfigs[0].natIP)' --zone=$STRIIMVM_ZONE)
+
+
+jdbc:mysql://[PRIMARY_ADDRESS]:3306/striimdemo
+
+jdbc:mysql://34.69.109.102:3306/striimdemo
+
+
+gcloud sql instances describe mymart2
+
+  ./cloud_sql_proxy -instances=shailesh-1:us-central1:sqlserver-ent-2019=tcp:127.0.0.1:1433 -ip_address_types=PRIVATE
+
+./cloud_sql_proxy -instances=shailesh-1:us-central1:sqlserver-ent-2019=tcp:1433
+
+
+gcloud compute start-iap-tunnel <instance Name> 22 \
+  --zone=<Your zone> --local-host-port=localhost:4226
+
+gcloud compute start-iap-tunnel "instance-mumbai" 22 \
+  --zone="asia-south1-c" --local-host-port=localhost:4226  
+
+ssh -L 3306:localhost:3306 \
+  -i ~/.ssh/google_compute_engine \
+  -p 4226 localhost \
+  -- /tmp/cloud_sql_proxy instances=<connection_name>=tcp:3306
+
+ssh -L 3306:localhost:3306 \
+  -p 4226 localhost \
+  -- ./cloud_sql_proxy instances=shailesh-1:asia-south1:mymart2=tcp:3306
+  
+    
+
+MYSQL_INSTANCE=mysql-db
+
+gcloud sql instances create ${MYSQL_INSTANCE} \
+    --cpu=2 --memory=10GB \
+    --authorized-networks=${DATASTREAM_IPS} \
+    --enable-bin-log \
+    --region=us-central1 \
+    --database-version=MYSQL_8_0 \
+    --root-password password123
+
+
+
+
+
+
+gcloud sql import sql \
+    ${CLOUD_SQL} \
+    "gs://${GCS_BUCKET}/resources/ora2pg/output.sql" \
+    --user=postgres \
+    --project=${PROJECT_ID} \
+    --database=postgres \
+    --quiet
+
+
+gcloud sql import sql \
+    pg1 \
+    "gs://shailesh-ora2pg-datastream/output.sql" \
+    --user=postgres \
+    --project=shailesh-1 \
+    --database=postgres \
+    --quiet
+
+
+gcloud sql connect cloudsql001 --user=root < employees.sql
+
+gcloud sql connect mymart1 --user=root < employees.sql
+gcloud sql connect mymart2 --user=root < employees.sql
+
+
+
+
+
+
+======================SSL Cert
+server-ca.pem
+client-cert.pem
+client-key.pem
+
+
+mysql -uroot -p -h 10.45.193.43 --ssl-ca=server-ca.pem --ssl-cert=client-cert.pem --ssl-key=client-key.pem
+
+admin_shkm_altostrat_com@instance-mumbai:~/cloud-sql$ mkdir ssl-cert-mysql
+admin_shkm_altostrat_com@instance-mumbai:~/cloud-sql$ cd ssl-cert-mysql/
+admin_shkm_altostrat_com@instance-mumbai:~/cloud-sql/ssl-cert-mysql$ vi server-ca.pem
+admin_shkm_altostrat_com@instance-mumbai:~/cloud-sql/ssl-cert-mysql$ vi client-cert.pem
+admin_shkm_altostrat_com@instance-mumbai:~/cloud-sql/ssl-cert-mysql$ vi client-key.pem
+admin_shkm_altostrat_com@instance-mumbai:~/cloud-sql/ssl-cert-mysql$ mysql -uroot -p -h 10.45.193.43 --ssl-ca=server-ca.pem --ssl-cert=client-cert.pem --ssl-key=client-key.pem
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 291
+Server version: 5.7.36-google-log (Google)
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]>
+MySQL [(none)]>
+MySQL [(none)]>
+MySQL [(none)]> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| employees          |
+| mymartdb           |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.002 sec)
+
+MySQL [(none)]> exit
+Bye
+admin_shkm_altostrat_com@instance-mumbai:~/cloud-sql/ssl-cert-mysql$ ls
+client-cert.pem  client-key.pem  server-ca.pem
+admin_shkm_altostrat_com@instance-mumbai:~/cloud-sql/ssl-cert-mysql$
+
+
+
+gcloud sql instances patch INSTANCE_NAME --activation-policy=ALWAYS
+
+gcloud sql instances patch pg-db1 --activation-policy=NEVER
+
+gcloud sql instances patch pg-db1 --activation-policy=ALWAYS
+
+terraform import google_sql_database_instance.main {{name}}
+
+terraform import google_sql_database_instance.main {{pg-db1}}
+
+provider "google" {
+  version = "3.10.0"
+  credentials = file("[NAME].json")
+  project = "[PROJECT_ID]"
+  region = "us-east1"
+  zone = "us-east1-d"
+}
+resource "random_id" "db_name_suffix" {
+  byte_length = 4
+}
+resource "google_sql_database_instance" "postgres" {
+  name = "postgres-instance-${random_id.db_name_suffix.hex}"
+  database_version = "POSTGRES_11"
+  settings{
+    tier = "db-f1-micro"
+  }
+}
+
+
+provider "google"
+resource "google_sql_database_instance" "postgres" {
+  name = "pg-db1"
+}
+
+terraform import google_sql_database.default {{pg-db1}}
+
+terraform import google_sql_database_instance.master projects/{{xxx-xxx}}/instances/{{test-import-mysql}}
+terraform import google_sql_database.default projects/{{xxx-xxx}}/instances/{{test-import-mysql}}/databases/{{testdb}}
+
+terraform import google_sql_database_instance.master projects/{{shailesh-1}}/instances/{{pg-db1}}
+
+resource "google_sql_database_instance" "master" {
+  # (resource arguments)
+}
+
+resource "google_sql_database" "default"{
+
+}
+
+
+gcloud sql backups list --instance pg-db1
+
+gcloud sql backups restore 1648090800000  --restore-instance=pg-db2  --backup-instance=pg-db1
+
+gcloud projects add-iam-policy-binding example-project-id-1 \
+      --member='serviceAccount:test-proj1@example.domain.com' \
+      --role='projects/example-project-id-1/roles/bucketViewer'
+
+gcloud projects add-iam-policy-binding shailesh-1 \
+      --member='serviceAccount:p664290125703-fx5ktu@gcp-sa-cloud-sql.iam.gserviceaccount.com' \
+      --role='roles/cloudsql.editor'
+
+
+
+
+
+admin_@cloudshell:~/terraform/cloud-sql (shailesh-1)$ cat main.tf
+variable "project" {}
+variable "region" {}
+provider "google" {
+project = "${var.project}"
+region = "${var.region}"
+}
+resource "google_sql_database_instance" "master" {
+name = "pg-db2"
+database_version = "POSTGRES_10"
+region = "${var.region}"
+settings {
+tier = "db-n1-standard-2"
+}
+}
+resource "google_sql_database" "database" {
+name = "database_name"
+instance = "${google_sql_database_instance.master.name}"
+charset = "utf8"
+collation = "utf8_general_ci"
+}
+admin_@cloudshell:~/terraform/cloud-sql (shailesh-1)$ cat terraform.tfvars
+project = "shailesh-1"
+region = "asia-south1"
+admin_@cloudshell:~/terraform/cloud-sql (shailesh-1)$
+
+
+
+variable "project" {}
+variable "region" {}
+provider "google" {
+project = "${var.project}"
+region = "${var.region}"
+}
+resource "google_sql_database_instance" "master" {
+name = "pg-db2"
+database_version = "POSTGRES_10"
+region = "${var.region}"
+settings {
+tier = "db-n1-standard-2"
+}
+}
+resource "google_sql_database" "database" {
+name = "database_name"
+instance = "${google_sql_database_instance.master.name}"
+charset = "utf8"
+collation = "utf8_general_ci"
+}
+
+
+
+GRANT ALL PRIVILEGES ON TABLE film TO "admin@shkm.altostrat.com";
+
+
+
+
+gcloud sql import csv insightsmysql gs://mysqlimport16/Cloud_SQL_Export_1.csv --database=test --table=student_data2
+
+
+
+gcloud sql import csv insightsmysql gs://mysqlimport16/Cloud_SQL_Export_1.csv --database=test --table=student_data2
+
