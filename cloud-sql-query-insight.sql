@@ -1,5 +1,56 @@
 admin_shkm_altostrat_com@instance-mumbai:~/alloydb/demo$ pgbench --host=10.45.193.230 --username=postgres -n -c 5 -j 5 -S -T 9000 -f pgbench.sql  testdb
 
+create table t1 (id integer, name varchar(10));
+
+insert into t1 values(100,'ABC');
+insert into t1 values(101,'SQL');
+insert into t1 values(102,'OPM');
+insert into t1 values(103,'UYT');
+insert into t1 values(104,'BDE');
+insert into t1 values(105,'CBA');
+
+\d t1
+select * from t1;
+
+begin;
+update t1 set name='UPD';
+
+rr=`echo $RANDOM | md5sum | head -c 9`
+
+nohup psql -h $hh -U postgres testdb -c "update t1 set name='${rr}'" &
+
+
+===============================================================================================
+Sample table with Data
+===============================================================================================
+CREATE TABLE Departments (code VARCHAR(4), UNIQUE (code));
+CREATE TABLE Towns (
+  id SERIAL UNIQUE NOT NULL,
+  code VARCHAR(10) NOT NULL, -- not unique
+  article TEXT,
+  name TEXT NOT NULL, -- not unique
+  department VARCHAR(4) NOT NULL REFERENCES Departments (code),
+  UNIQUE (code, department)
+);
+
+insert into towns (
+    code, article, name, department
+)
+select
+    left(md5(i::text), 10),
+    md5(random()::text),
+    md5(random()::text),
+    left(md5(random()::text), 4)
+from generate_series(1, 1000000) s(i)
+
+
+
+
+===============================================================================================
+
+
+
+
 
 pgbench --host=10.45.193.230 --username=postgres -n -c 5 -j 5 -S -T 9000 -f pgbench.sql  testdb
 
