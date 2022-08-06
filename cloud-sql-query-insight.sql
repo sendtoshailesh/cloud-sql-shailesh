@@ -13,11 +13,24 @@ insert into t1 values(105,'CBA');
 select * from t1;
 
 begin;
-update t1 set name='UPD';
+update towns set code='blocker';
 
-rr=`echo $RANDOM | md5sum | head -c 9`
+export PGPASSWORD=Welcome0
+export hh=10.45.193.230
+nohup psql -h ${hh} -U postgres testdb -c "update towns set code='blocked' where department between 100 and 200" &
+nohup psql -h ${hh} -U postgres testdb -c "update towns set code='blocked' where department between 200 and 300" &
+nohup psql -h ${hh} -U postgres testdb -c "update towns set code='blocked' where department between 400 and 500" &
+nohup psql -h ${hh} -U postgres testdb -c "update towns set code='blocked' where department between 700 and 800" &
 
-nohup psql -h $hh -U postgres testdb -c "update t1 set name='${rr}'" &
+blocking another session.
+
+select pid, 
+       usename, 
+       pg_blocking_pids(pid) as blocked_by, 
+       query as blocked_query
+from pg_stat_activity
+where cardinality(pg_blocking_pids(pid)) > 0;
+
 
 
 ===============================================================================================
