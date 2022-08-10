@@ -36,26 +36,9 @@ where cardinality(pg_blocking_pids(pid)) > 0;
 ===============================================================================================
 Sample table with Data
 ===============================================================================================
-CREATE TABLE Departments (code VARCHAR(4), UNIQUE (code));
-CREATE TABLE Towns (
-  id SERIAL UNIQUE NOT NULL,
-  code VARCHAR(10) NOT NULL, -- not unique
-  article TEXT,
-  name TEXT NOT NULL, -- not unique
-  department VARCHAR(4) NOT NULL REFERENCES Departments (code),
-  UNIQUE (code, department)
-);
+create database test123;
 
-To insert one million rows into Towns
-
-
-insert into towns (code, article, name, department)
-select
-    left(md5(i::text), 10),
-    md5(random()::text),
-    md5(random()::text),
-    left(md5(random()::text), 4)
-from generate_series(1, 1000000) s(i);
+\c test123
 
 CREATE TABLE Towns (
   id SERIAL UNIQUE NOT NULL,
@@ -73,12 +56,18 @@ select
     round(random()*1000)
 from generate_series(1, 1000000) s(i);
 
+select count(*) from towns;
+
 \timing on
 select * from towns where department in (select distinct department from towns where department between 150 and 250);
 
+select count(*) from towns where department in (select distinct department from towns where department between 150 and 250);
+
 explain select * from towns where department in (select distinct department from towns where department between 150 and 250);
 
-pgbench --host=10.45.193.230 --username=postgres -n -c 2 -j 1 -S -T 9000 -f exp.sql  testdb
+pgbench --host=10.45.193.230 --username=postgres -i -s 10 testdb123
+
+pgbench --host=10.45.193.230 --username=postgres -n -c 2 -j 1 -S -T 9000 -f exp.sql  testdb123
 
 create index idx_towns_dept on towns(department);
 
