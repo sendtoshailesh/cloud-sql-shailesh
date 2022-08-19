@@ -19,4 +19,8 @@ ssh -L 3306:localhost:3306 \
   
   gcloud compute scp ./cloud_sql_proxy instance-mumbai:/tmp
   
+  /tmp/cloud_sql_proxy --instances=shailesh-1:asia-south1:pg-db11=tcp:3306
+  
+  
+  
   
