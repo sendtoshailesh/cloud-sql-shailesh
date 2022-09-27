@@ -12,6 +12,8 @@ cat requirements.txt
 cat main.py
 
 in same dir where main.py and requirements.txt exist, run following to deploy the cloud function along with the code:
+Make sure to match entry function in main.py in following command:
+
 
 gcloud beta functions deploy sql_connect --runtime python37 --project shailesh-1 --region asia-south1 --vpc-connector serverless-1 --trigger-http --service-account 664290125703-compute@developer.gserviceaccount.com
 
