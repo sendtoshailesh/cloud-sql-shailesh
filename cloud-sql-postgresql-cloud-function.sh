@@ -1,6 +1,8 @@
 https://blog.pythian.com/how-to-connect-from-cloud-functions-to-the-private-ip-address-of-cloud-sql-in-google-cloud/
 
 
+https://codelabs.developers.google.com/codelabs/connecting-to-cloud-sql-with-cloud-functions#2
+
 create serverless VPC connector for Private IP based Cloud SQL
 
 https://cloud.google.com/sql/docs/postgres/connect-functions#private-ip_1
