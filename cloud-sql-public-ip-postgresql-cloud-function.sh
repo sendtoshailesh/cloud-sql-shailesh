@@ -1,4 +1,12 @@
 (base) admin_shkm_altostrat_com@instance-mumbai:~/cloud-function-cloud-sql/on-public-ip$
+(base) admin_shkm_altostrat_com@instance-mumbai:~/cloud-function-cloud-sql/on-public-ip$ cat requirements.txt
+# This file tells Python which modules it needs to import
+SQLAlchemy==1.3.12
+# If your database is MySQL, uncomment the following line:
+#PyMySQL==0.9.3
+# If your database is PostgreSQL, uncomment the following line:
+pg8000==1.13.2
+(base) admin_shkm_altostrat_com@instance-mumbai:~/cloud-function-cloud-sql/on-public-ip$
 (base) admin_shkm_altostrat_com@instance-mumbai:~/cloud-function-cloud-sql/on-public-ip$
 (base) admin_shkm_altostrat_com@instance-mumbai:~/cloud-function-cloud-sql/on-public-ip$ cat main.py
 import pg8000
